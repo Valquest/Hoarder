@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsyhj3fy2ttej"]
+
+[ext_resource type="Script" path="res://scripts/gem_base.gd" id="1_l4u55"]
+
+[node name="RigidBody2D" type="RigidBody2D"]
+position = Vector2(301, 82)
+disable_mode = 1
+mass = 2.0
+gravity_scale = 0.071
+script = ExtResource("1_l4u55")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-1.51396e-05, -2.86102e-06)
+scale = Vector2(0.49856, 0.55984)
+polygon = PackedVector2Array(1, 1, 1, 1, 1, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionPolygon2D"]
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

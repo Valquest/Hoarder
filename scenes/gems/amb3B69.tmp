@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyi7a18jo8gmk"]
+
+[ext_resource type="PackedScene" uid="uid://bsyhj3fy2ttej" path="res://scenes/gems/gemBase.tscn" id="1_huidw"]
+[ext_resource type="Script" path="res://scripts/gems/amber_gem.gd" id="2_bgabg"]
+[ext_resource type="Texture2D" uid="uid://2ynfokjiy4w7" path="res://assets/gems/Amber_gem.png" id="2_h0nkh"]
+
+[node name="RigidBody2D" instance=ExtResource("1_huidw")]
+script = ExtResource("2_bgabg")
+gem_mass = null
+settle_linear_velocity_threshold = null
+settle_angular_velocity_threshold = null
+settle_time_threshold = null
+linear_damp_after_settle = null
+angular_damp_after_settle = null
+gem_attraction_range = null
+
+[node name="CollisionPolygon2D" parent="." index="0"]
+polygon = PackedVector2Array(-22.0635, -135.753, 68.1964, -83.9526, 68.1964, 105.387, 4.0116, 132.181, -68.1964, 64.3041, -68.1964, -82.1663)
+
+[node name="Sprite2D" parent="CollisionPolygon2D" index="0"]
+texture = ExtResource("2_h0nkh")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" index="1"]
+visible = false
+position = Vector2(-1.7941e-05, 0.430963)
+scale = Vector2(0.494894, 0.554693)
+polygon = PackedVector2Array(-22.0635, -135.753, 68.1964, -83.9526, 68.1964, 105.387, 4.0116, 132.181, -68.1964, 64.3041, -68.1964, -82.1663)
