@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://dqyk28poh0coy"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_7p4me"]
+[ext_resource type="PackedScene" uid="uid://ccsmrbsaj2w6b" path="res://scenes/main_platform.tscn" id="2_4o8qb"]
+[ext_resource type="Script" path="res://scripts/line_2d.gd" id="3_1dpb1"]
+[ext_resource type="Script" path="res://scripts/area_2d.gd" id="4_5c08j"]
+
+[sub_resource type="Curve" id="Curve_jrjn7"]
+_data = [Vector2(0.503448, 0.49867), 0.286161, 0.286161, 0, 0]
+point_count = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d4xu6"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_7p4me")
+
+[node name="AnimatableBody2D" parent="." instance=ExtResource("2_4o8qb")]
+position = Vector2(305, 950)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(300, 500)
+position_smoothing_speed = 1.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CanvasGroup" type="CanvasGroup" parent="CanvasLayer"]
+
+[node name="GemCounterLabel" type="Label" parent="CanvasLayer/CanvasGroup"]
+offset_left = 45.0
+offset_top = 36.0
+offset_right = 137.0
+offset_bottom = 59.0
+text = "Gem Count:"
+
+[node name="GemCountLabel" type="Label" parent="CanvasLayer/CanvasGroup"]
+offset_left = 141.0
+offset_top = 36.0
+offset_right = 181.0
+offset_bottom = 59.0
+text = "0"
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 800, 600, 800)
+width_curve = SubResource("Curve_jrjn7")
+script = ExtResource("3_1dpb1")
+
+[node name="Area2D" type="Area2D" parent="Line2D"]
+script = ExtResource("4_5c08j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Line2D/Area2D"]
+position = Vector2(300, 787)
+scale = Vector2(29.92, 1)
+shape = SubResource("RectangleShape2D_d4xu6")
