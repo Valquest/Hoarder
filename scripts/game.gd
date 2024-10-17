@@ -26,9 +26,9 @@ func spawn_gem():
 	current_gem.disable_collisions()
 	
 	# Calculate the top of the camera view, relative to the camera's smoothed position
-	var camera_top = camera.get_global_position().y - get_viewport_rect().size.y /  2 + 120
+	var camera_top = camera.get_global_position().y - get_viewport_rect().size.y /  2
 	
-	current_gem.position = Vector2(get_viewport().get_mouse_position().x, camera_top)  # Spawn at top of screen
+	current_gem.position = Vector2(get_viewport().get_mouse_position().x, camera_top + 120)  # Spawn at top of screen and add an offset value
 	add_child(current_gem)
 	
 	# Add current gem to the list of other gems
