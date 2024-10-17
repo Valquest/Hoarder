@@ -56,9 +56,9 @@ func _process(delta):
 	# If the gem has not been dropped, follow the mouse at the top of the camera's view
 	if current_gem and not current_gem.is_dropping:
 		var current_gem_position = current_gem.position.y
-		var camera_top = camera.get_global_position().y - get_viewport_rect().size.y /  2 + 100
+		var camera_top = camera.get_global_position().y - get_viewport_rect().size.y /  2
 		# Keep the gem following the mouse horizontally and at the top of the camera's view vertically
-		current_gem.position = Vector2(get_viewport().get_mouse_position().x, lerp(current_gem_position, camera_top, 0.1))
+		current_gem.position = Vector2(get_viewport().get_mouse_position().x, lerp(current_gem_position, camera_top + 100, 0.1))
 		
 	if gem_count > 0:
 		var highest_gem = find_highest_gem()
