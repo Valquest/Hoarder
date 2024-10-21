@@ -10,10 +10,6 @@ var is_on_screen = true
 @onready var platform_node = get_node("/root/Game/AnimatableBody2D")
 @onready var notifier = $VisibleOnScreenNotifier2D
 
-# Gem attraction physics variables
-var attraction_radius = 50
-var attraction_strength = 500
-
 # A list of other gems
 var other_gems = []
 
@@ -73,8 +69,6 @@ func _process(delta):
 				gem.other_gems.erase(self)
 		queue_free()  # Remove the gem from the scene
 
-
-
 # Handle mouse input
 func _input(event):
 	if event is InputEventMouseButton:
@@ -102,23 +96,6 @@ func disable_collisions():
 func enable_collisions():
 	collision_layer = 1  # Adjust this to match your game's setup
 	collision_mask = 1  # Adjust this to match your game's setup
-
-# Attract gem towards other gem
-func attract_to_other_gem(other_gem):
-	# Check if gem is still on screen
-	if is_instance_valid(other_gem):
-		# Calculate distance between 2 gems
-		var distance_to_other = global_position.distance_to(other_gem.global_position)
-		
-		# Only attract if within attraction range
-		if distance_to_other < attraction_radius:
-			var direction_to_other = (other_gem.global_position - global_position).normalized()
-			
-			# The closer they are the stronger they are attracted
-			var force_strength = attraction_strength / distance_to_other
-			
-			# Apply force in the direction of the other gem
-			apply_central_impulse(direction_to_other * force_strength)
 	
 # Drop the gem
 func drop_gem():

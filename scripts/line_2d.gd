@@ -11,7 +11,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-
 	time_passed += delta  # Increment the time passed
 
 	# Generate chaotic motion using noise and sine/cosine waves

@@ -26,11 +26,11 @@ func spawn_gem():
 	current_gem.disable_collisions()
 	
 	# Calculate the top of the camera view, relative to the camera's smoothed position
-	var camera_top = camera.get_global_position().y - get_viewport_rect().size.y /  2
+	var camera_top = camera.get_global_position().y - get_viewport_rect().size.y /  2 + 120 # Set camera top y position and add an offset value
 	
-	current_gem.position = Vector2(get_viewport().get_mouse_position().x, camera_top + 120)  # Spawn at top of screen and add an offset value
+	current_gem.position = Vector2(get_viewport().get_mouse_position().x, camera_top)  # Spawn at top of screen
 	add_child(current_gem)
-	
+		
 	# Add current gem to the list of other gems
 	for gem in get_tree().get_nodes_in_group("gems"):
 		gem.other_gems.append(current_gem)
@@ -56,9 +56,11 @@ func _process(delta):
 	# If the gem has not been dropped, follow the mouse at the top of the camera's view
 	if current_gem and not current_gem.is_dropping:
 		var current_gem_position = current_gem.position.y
-		var camera_top = camera.get_global_position().y - get_viewport_rect().size.y /  2
-		# Keep the gem following the mouse horizontally and at the top of the camera's view vertically
-		current_gem.position = Vector2(get_viewport().get_mouse_position().x, lerp(current_gem_position, camera_top + 100, 0.1))
+		var camera_top = camera.get_global_position().y - get_viewport_rect().size.y /  2 + 100
+		var spawn_movement_limit = camera_top + 2
+		
+		# When gem spawn it moves up few pixels to feel more fluid
+		current_gem.position = Vector2(get_viewport().get_mouse_position().x, lerp(current_gem_position, camera_top, 0.1))
 		
 	if gem_count > 0:
 		var highest_gem = find_highest_gem()
