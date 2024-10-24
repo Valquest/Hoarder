@@ -56,8 +56,9 @@ func _process(delta):
 		
 	# Increment gem counter
 	if is_dropping and not landed:
-		if abs(linear_velocity.y) < 1.0: #and global_position.y > 150:  # Adjust Y position threshold if necessary
+		if linear_velocity.length() < 1.0: #and global_position.y > 150:  # Adjust Y position threshold if necessary
 			mark_as_landed()
+			print("Landed")
 			
 	# Decrement gem counter
 	if is_dropping and global_position.y > 1050 and is_on_screen:

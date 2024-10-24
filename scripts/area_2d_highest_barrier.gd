@@ -8,7 +8,4 @@ func _on_body_exited(body):
 
 func update_position(body):
 	if game_node.highest_gem and body == game_node.highest_gem:
-		print(self.global_position.y)
 		self.global_position.y = game_node.highest_gem.global_position.y + 50
-		print("New position:")
-		print(self.global_position.y)

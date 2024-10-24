@@ -82,14 +82,12 @@ func _process(delta):
 				camera.position.y = lerp(camera.position.y, target_y - 200, 0.1)
 
 func find_highest_gem():
-	print("Running this")
 	for gem in get_tree().get_nodes_in_group("gems"):
 		if gem.landed:
 			var current_gem_y = gem.global_position.y
 			if highest_gem == null or highest_gem.global_position.y > current_gem_y:
 				highest_gem = gem
 				highest_barrier_area.update_position(gem)
-
 	return highest_gem
 
 # Spawn the first gem when the game starts
