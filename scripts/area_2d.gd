@@ -24,7 +24,6 @@ func update_position():
 		var line_position = owner.position
 		position = Vector2(line_position.x, line_position.y + offset_y)
 
-
 func _process(delta):
 	update_position()
 
