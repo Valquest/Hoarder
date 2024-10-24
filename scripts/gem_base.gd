@@ -4,6 +4,7 @@ extends RigidBody2D
 var is_dropping = false
 var landed = false
 var is_on_screen = true
+var gem_id = 0
 
 @onready var game_node = get_node("/root/Game")
 @onready var counter_label = game_node.get_node("CanvasLayer/CanvasGroup/GemCountLabel")
@@ -55,7 +56,7 @@ func _process(delta):
 		
 	# Increment gem counter
 	if is_dropping and not landed:
-		if abs(linear_velocity.y) < 1.0 and global_position.y > 150:  # Adjust Y position threshold if necessary
+		if abs(linear_velocity.y) < 1.0: #and global_position.y > 150:  # Adjust Y position threshold if necessary
 			mark_as_landed()
 			
 	# Decrement gem counter
@@ -67,6 +68,7 @@ func _process(delta):
 		for gem in other_gems:
 			if is_instance_valid(gem):
 				gem.other_gems.erase(self)
+		game_node.highest_gem = game_node.find_highest_gem()
 		queue_free()  # Remove the gem from the scene
 
 # Handle mouse input
@@ -86,6 +88,8 @@ func mark_as_landed():
 		landed = true
 		# Increment the gem counter
 		game_node.increment_gem_count()
+		# Re-evalaute which gem is now the highest
+		game_node.highest_gem = game_node.find_highest_gem()
 
 # Disable collisions initially by setting collision layers and masks to 0
 func disable_collisions():

@@ -10,6 +10,7 @@ _data = [Vector2(0.503448, 0.49867), 0.286161, 0.286161, 0, 0]
 point_count = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d4xu6"]
+size = Vector2(20, 797)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_7p4me")
@@ -48,6 +49,6 @@ script = ExtResource("3_1dpb1")
 script = ExtResource("4_5c08j")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Line2D/Area2D"]
-position = Vector2(300, 787)
+position = Vector2(300, 398.5)
 scale = Vector2(29.92, 1)
 shape = SubResource("RectangleShape2D_d4xu6")

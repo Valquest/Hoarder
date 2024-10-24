@@ -64,13 +64,21 @@ func _on_body_exited(body):
 
 # Function to freeze all currently visible and settled gems
 func freeze_all_gems():
+	var highest_frozen_gem = null
 	for gem in get_tree().get_nodes_in_group("gems"):
 		# Check if the gem is visible and has landed
 		if gem.is_visible_in_tree() and gem.landed:
-			gem.freeze = true  # Freeze only gems that have landed
-	print("All settled gems frozen!")
+			if highest_frozen_gem == null:
+				highest_frozen_gem = gem
+				gem.freeze = true  # Freeze only gems that have landed
+			elif gem.global_position.y < highest_frozen_gem.global_position.y:
+				highest_frozen_gem.remove_from_group("gems")
+				highest_frozen_gem = gem
+				gem.freeze = true  # Freeze only gems that have landed
+			else:
+				gem.freeze = true  # Freeze only gems that have landed
+				gem.remove_from_group("gems")
 	gem_timer.clear()
-
 
 # Function to move the Line2D upwards
 func move_line_upwards():

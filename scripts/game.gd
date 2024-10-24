@@ -4,6 +4,12 @@ var current_gem = null
 var can_spawn_gem = true
 var gem_count = 0
 
+# Debug line
+var total_gems = 0
+
+# Global variable that tracks highest gem object
+var highest_gem = null
+
 var last_rotation_angle = 0 # Gem rotation angle for keeping all gems on the same angle on spawn
 
 @onready var counter_label = $CanvasLayer/CanvasGroup/GemCountLabel
@@ -14,6 +20,11 @@ var gem_scene = preload("res://scenes/gems/amber_gem.tscn")
 # Function to spawn a new gem (spawns amber gem)
 func spawn_gem():
 	current_gem = gem_scene.instantiate()
+	
+	# Debug line
+	total_gems += 1
+	var gem_label = current_gem.get_node("Label")
+	gem_label.text = str(total_gems)
 	
 	# Get previous gems rotation angle
 	current_gem.rotation_degrees = last_rotation_angle
@@ -51,7 +62,7 @@ func _input(event):
 			await get_tree().create_timer(0.25).timeout
 			spawn_gem()
 			can_spawn_gem = true
-
+			
 func _process(delta):
 	# If the gem has not been dropped, follow the mouse at the top of the camera's view
 	if current_gem and not current_gem.is_dropping:
@@ -63,7 +74,6 @@ func _process(delta):
 		current_gem.position = Vector2(get_viewport().get_mouse_position().x, lerp(current_gem_position, camera_top, 0.1))
 		
 	if gem_count > 0:
-		var highest_gem = find_highest_gem()
 		if highest_gem:
 			# Move the camera to follow the highest gem
 			var target_y = highest_gem.global_position.y  # Adjust this value as needed
@@ -71,15 +81,13 @@ func _process(delta):
 				camera.position.y = lerp(camera.position.y, target_y - 200, 0.1)
 
 func find_highest_gem():
-	var highest_gem = null
-	var highest_y = INF
-	
 	for gem in get_tree().get_nodes_in_group("gems"):
 		if gem.landed:
-			if gem.global_position.y < highest_y:
-				highest_y = gem.global_position.y
+			var current_gem_y = gem.global_position.y
+			if highest_gem == null and current_gem_y < get_viewport_rect().size.y:
 				highest_gem = gem
-	
+			elif highest_gem.global_position.y > current_gem_y:
+				highest_gem = gem
 	return highest_gem
 
 # Spawn the first gem when the game starts
